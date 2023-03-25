@@ -1,5 +1,5 @@
 # ADVANCED REDUX TOOLKIT 
 
-Author : Smriti Pradhan 
+Author : Smriti Pradhan <br/> 
 Credits : Maximilian Schwarzmüller
 
