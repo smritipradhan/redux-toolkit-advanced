@@ -14,6 +14,9 @@ Credits : Maximilian Schwarzmüller
 5. Exploring Redux DevTools
 
 ---
+<img width="1432" alt="Screenshot 2023-03-26 at 11 50 26 AM" src="https://user-images.githubusercontent.com/47382260/227759136-4bc39991-de7d-4c50-bf7c-af3828e7255b.png">
+<img width="1435" alt="Screenshot 2023-03-26 at 11 50 35 AM" src="https://user-images.githubusercontent.com/47382260/227759140-76a38af3-e0a5-4472-9788-020621905b04.png">
+---
 
 ### Side Effects , Async Task
 
@@ -40,10 +43,6 @@ After the installation we will setup the store.We are going to make 2 slices. On
 ui-slice.js
 
 We can write mutating code here because when using Redux Toolkit,we are not really mutating the state,even though it looks like we do,but instead Redux Toolkit will kind of capture this code and use another third party library imer to ensure that this is actually translated to some immutable code which creates a new state object instead of manipulating the existing one.
-<img width="1432" alt="Screenshot 2023-03-26 at 11 50 26 AM" src="https://user-images.githubusercontent.com/47382260/227759136-4bc39991-de7d-4c50-bf7c-af3828e7255b.png">
-<img width="1435" alt="Screenshot 2023-03-26 at 11 50 35 AM" src="https://user-images.githubusercontent.com/47382260/227759140-76a38af3-e0a5-4472-9788-020621905b04.png">
-
-
 
 ---
 
