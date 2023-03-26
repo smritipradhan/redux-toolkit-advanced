@@ -14,6 +14,7 @@ Credits : Maximilian Schwarzmüller
 5. Exploring Redux DevTools
 
 ---
+
 <img width="1432" alt="Screenshot 2023-03-26 at 11 50 26 AM" src="https://user-images.githubusercontent.com/47382260/227759136-4bc39991-de7d-4c50-bf7c-af3828e7255b.png">
 <img width="1435" alt="Screenshot 2023-03-26 at 11 50 35 AM" src="https://user-images.githubusercontent.com/47382260/227759140-76a38af3-e0a5-4472-9788-020621905b04.png">
 ---
@@ -153,5 +154,14 @@ dispatch(
       })
     );
 ```
+
+### Redux and Async Code
+
+We want to make an HTTP request to the server and then when our project reload the cart should be in the Screen. As of now whenever we are reloading the application the cart item is lost so we can store the data in the Database and whenever the application reload we can fetch it .
+
+For our Application we will be using Firebase as backend. We can also use Node JS.
+
 ![front-endvs-backend](https://user-images.githubusercontent.com/47382260/227760753-4e532470-1aa7-4c79-bcd6-eb268db0619c.png)
 
+Here, in our Application we are using Firebase with no logic and just storing the data.So, we need to do more work in the frontend to handle the cart. We cannnot send a HTTP request inside the reducer. We wrote code in the frontend to handle the cart Information.For example adding the product to cart when it was not there and adding when the product existed. THe same with the removing it. This can also be handled in the backend side where we could do less work in the frontend side but this is not the case here.
+So, we need to handle everything in the frontend side.
