@@ -165,3 +165,21 @@ For our Application we will be using Firebase as backend. We can also use Node J
 
 Here, in our Application we are using Firebase with no logic and just storing the data.So, we need to do more work in the frontend to handle the cart. We cannnot send a HTTP request inside the reducer. We wrote code in the frontend to handle the cart Information.For example adding the product to cart when it was not there and adding when the product existed. THe same with the removing it. This can also be handled in the backend side where we could do less work in the frontend side but this is not the case here.
 So, we need to handle everything in the frontend side.
+
+There are two ways to achieve-
+
+1. Inside the Component (eg useEffect);
+2. Action Creator
+
+When there is a choice for where to put our Code. There are Fat Reducers VS Fat Components VS Fat Actions.
+Two types of code -
+Side Effect Free Synchronous Code -- Prefer Reducers
+Asynchronous Code with Side Effect. -- Prefer Action Creator or Components.
+
+### Using useEffect with Redux
+
+.Sync our new state to the server . We can first do work on the frontend that is Redux update its store and then we send a request to the server.
+
+In App.js or Product.js
+We will listen to changes of the cart using useSelector and then send HTTP request to the server.
+We will send a PUT request to the server as we will replace the entire cart data.
