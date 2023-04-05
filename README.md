@@ -183,3 +183,127 @@ Asynchronous Code with Side Effect. -- Prefer Action Creator or Components.
 In App.js or Product.js
 We will listen to changes of the cart using useSelector and then send HTTP request to the server.
 We will send a PUT request to the server as we will replace the entire cart data.
+
+We face one problem when using useEffect the way we currently do it: It will execute when our app starts.Why is this an issue It's a problem because this will send the initial (i.e. empty) cart to our backend and overwrite any data stored there.
+
+### Handling HTTP states and Feedback with Redux
+
+Here we will add a notification component which is a bar at the top with some message like sending request , or something wrong happened .The problem of whenever the App starts it will send the inital cart which is empty.
+
+Adding Notification Component and using with Redux
+
+App.js
+
+```
+import Cart from "./components/Cart/Cart";
+import Layout from "./components/Layout/Layout";
+import Products from "./components/Shop/Products";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { uiActions } from "./store/ui-slice";
+import Notification from "./components/UI/Notification";
+
+let isInitial = true;
+
+function App() {
+  const dispatch = useDispatch();
+  const cartIsVisible = useSelector((state) => state.ui.cartIsVisible);
+  const cart = useSelector((state) => state.cart);
+  const notification = useSelector((state) => state.ui.notification);
+
+  useEffect(() => {
+    const sendCartData = async () => {
+      if (isInitial) {
+        isInitial = false;
+        return;
+      }
+
+      dispatch(
+        uiActions.showNotification({
+          status: "pending",
+          title: "Sending Cart Data",
+          message: "Sending Cart Data",
+        })
+      );
+      const response = await fetch(
+        "https://react-post-call-default-rtdb.firebaseio.com/cart.json",
+        {
+          method: "PUT",
+          body: JSON.stringify(cart),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Sending Cart Data failed");
+      }
+
+      dispatch(
+        uiActions.showNotification({
+          status: "success",
+          title: "Sending Cart Data Success",
+          message: "Data Sent Successfully",
+        })
+      );
+    };
+
+    sendCartData(cart).catch((err) => {
+      dispatch(
+        uiActions.showNotification({
+          status: "error",
+          title: "Sending Cart Data Failed",
+          message: "Error in Sending Cart Data",
+        })
+      );
+    });
+  }, [cart, dispatch]);
+
+  return (
+    <>
+      {notification && (
+        <Notification
+          status={notification.status}
+          message={notification.message}
+          title={notification.title}
+        />
+      )}
+      <Layout>
+        {cartIsVisible && <Cart />}
+        <Products />
+      </Layout>
+    </>
+  );
+}
+
+export default App;
+
+```
+
+ui-slice.js
+
+```
+import { createSlice } from "@reduxjs/toolkit";
+
+const initialState = { cartIsVisible: false, notification: null }; //Cart is visible or not visible
+
+const uiSlice = createSlice({
+  name: "ui",
+  initialState,
+  reducers: {
+    toggle(state) {
+      state.cartIsVisible = !state.cartIsVisible;
+    },
+    showNotification(state, action) {
+      state.notification = {
+        status: action.payload.status,
+        title: action.payload.title,
+        message: action.payload.message,
+      };
+    },
+  },
+});
+
+export default uiSlice.reducer;
+export const uiActions = uiSlice.actions;
+
+
+```
