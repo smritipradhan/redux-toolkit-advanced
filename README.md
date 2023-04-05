@@ -307,6 +307,7 @@ export const uiActions = uiSlice.actions;
 
 
 ```
+
 <img width="1429" alt="Screenshot 2023-04-05 at 9 10 59 AM" src="https://user-images.githubusercontent.com/47382260/229975871-102d5f34-7e2c-40db-8d77-d6d97371ef57.png">
 
-
+# Action Creator Thunk (Important)
